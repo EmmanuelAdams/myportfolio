@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Emmyadams007/myProject",
   "keywords": [],
   "dependencies": {
-    "gh-pages": "^3.2.3"
+    "express": "^4.18.2",
+    "gh-pages": "^3.2.3",
+    "nodemailer": "^6.9.3"
   }
 }
