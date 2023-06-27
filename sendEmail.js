@@ -1,11 +1,7 @@
-const express = require('express');
-const app = express();
 const nodemailer = require('nodemailer');
 
-app.use(express.json());
-
-app.post('/send-email', (req, res) => {
-  const { name, email, message } = req.body;
+exports.handler = function (event, context, callback) {
+  const { name, email, message } = JSON.parse(event.body);
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -25,16 +21,20 @@ app.post('/send-email', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log('Error:', error);
-      res
-        .status(500)
-        .json({ error: 'Failed to send email' });
+      callback(null, {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: 'Failed to send email',
+        }),
+      });
     } else {
       console.log('Email sent:', info.response);
-      res
-        .status(200)
-        .json({ message: 'Email sent successfully' });
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: 'Email sent successfully',
+        }),
+      });
     }
   });
-});
-
-module.exports = app;
+};
