@@ -1,5 +1,3 @@
-console.log('it working');
-
 let theme = localStorage.getItem('theme');
 
 if (theme == null) {
@@ -42,16 +40,13 @@ function setTheme(mode) {
   localStorage.setItem('theme', mode);
 }
 
-// portfolio slide show
 let slideIndex = 1;
 showSlides(slideIndex);
 
-// Next/previous controls
 function plusSlides(n) {
   showSlides((slideIndex += n));
 }
 
-// Thumbnail image controls
 function currentSlide(n) {
   showSlides((slideIndex = n));
 }
@@ -79,25 +74,25 @@ function showSlides(n) {
   dots[slideIndex - 1].className += ' active';
 }
 
-// send email
 function sendEmail() {
-  var params = {
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    message: document.getElementById('message').value,
-  };
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
 
-  const serviceId = 'service_2u4hpuo';
-  const templateId = 'template_jp0o7bn1';
-
-  emailjs
-    .send(serviceId, templateId, params)
-    .then((res) => {
-      document.getElementById('name').value,
-        document.getElementById('email').value,
-        document.getElementById('message').value;
-      console.log(res);
+  fetch('/send-email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, message }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      alert(data.message);
     })
-    .then(alert('Message Sent Successfully!'))
-    .catch((err) => console.log(err));
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('An error occurred while sending the email.');
+    });
 }
