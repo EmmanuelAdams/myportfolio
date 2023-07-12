@@ -1,4 +1,0 @@
-[[redirects]]
-from = "/send-email"
-to = "/.netlify/functions/sendEmail"
-status = 200
