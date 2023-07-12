@@ -2,7 +2,7 @@
 
 ## View Live Preview Here:
 
-> live: https://emmanueladams.github.io/myportfolio/
+> live: https://my-portfolio-n97j.onrender.com/
 
 <br>
 
